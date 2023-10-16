@@ -1,38 +1,34 @@
-#Задача 1
-class Shape:
-    def draw(self):
-        print("Рисуем фигуру")
+import time
 
-class Circle(Shape):
-    def draw(self):
-        print("Рисуем круг")
+class Timer:
+    def __init__(self, initial_time):
+        self.initial_time = initial_time
+        self.current_time = initial_time
+        self.running = False
 
-class Rectangle(Shape):
-    def draw(self):
-        print("Рисуем прямоугольник")
+    def get_time(self):
+        return self.current_time
 
-circle = Circle()
-rectangle = Rectangle()
+    def start(self):
+        if self.current_time > 0 and not self.running:
+            self.running = True
+            while self.current_time > 0:
+                print(f"Осталось времени: {self.current_time} секунд")
+                time.sleep(1)
+                self.current_time -= 1
+            print("Таймер завершен.")
+            self.running = False
 
-circle.draw()      
-rectangle.draw()    
+    def reset(self):
+        self.current_time = self.initial_time
 
-#Задача 2
-
-class Counter:
-    def __init__(self):
-        self.value = 0
-
-    def increment(self, value):
-        self.value += value
-
-    def get_value(self):
-        return self.value
-
-counter = Counter()
-
-counter.increment(5)
-print(counter.get_value()) 
-
-counter.increment(10)
-print(counter.get_value())  
+# Пример использования
+if __name__ == "__main__":
+    timer = Timer(10) 
+    print("Начальное значение таймера:", timer.get_time())
+    
+    timer.start()  
+    print("Значение таймера после запуска:", timer.get_time())
+    
+    timer.reset() 
+    print("Значение таймера после сброса:", timer.get_time())
